@@ -184,6 +184,7 @@ const Model: React.FC<ModalProps> = ({
                     onClick={handelSubmit}
                   />
                 </div>
+                {footer}
               </div>
             </div>
           </div>

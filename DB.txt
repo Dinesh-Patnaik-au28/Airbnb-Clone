@@ -1,0 +1,11 @@
+mongo db pasword
+ffcWWIO4kAq97TrT
+usename
+dinudenga1124
+mongodb+srv://dinudenga1124:ffcWWIO4kAq97TrT@cluster0.mxqinnp.mongodb.net/
+
+usenmae
+dinesh
+password
+dinesh
+mongodb+srv://dinesh:<password>@cluster0.2xwrt2k.mongodb.net/
