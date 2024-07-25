@@ -5,10 +5,12 @@ import Avatar from "../Avatar";
 import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModalStore";
+import useLoginModal from "@/app/hooks/useLoginModalStore";
 
 const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -26,7 +28,7 @@ const UserMenu = () => {
             py-3
             py-4
             rounded-full
-            hover:bg-netural-100
+            hover:bg-neutral-100
             transition
             cursor-pointer
         "
@@ -41,7 +43,7 @@ const UserMenu = () => {
             md:py-1
             md:px-2
             border-[1px]
-            border-netural-200
+            border-neutral-200
             flex
             flex-row
             items-center
@@ -49,7 +51,7 @@ const UserMenu = () => {
             rounded-full
             cursor-pointer
             hover:shadow-md
-            transtition
+            transition
         "
         >
           <AiOutlineMenu />
@@ -75,7 +77,7 @@ const UserMenu = () => {
         >
           <div className="flex flex-col cursor-pointer">
             <>
-              <MenuItem onClick={() => {}} label="Login" />
+              <MenuItem onClick={loginModal.onOpen} label="Login" />
               <MenuItem onClick={registerModal.onOpen} label="Sign up" />
             </>
           </div>
