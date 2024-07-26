@@ -12,8 +12,12 @@ import Input from "../inputs/Input";
 import toast from "react-hot-toast";
 import Button from "../Button";
 import useLoginModal from "@/app/hooks/useLoginModalStore";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { SiFacebook } from "react-icons/si";
 
 const LoginModal = () => {
+  const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +28,6 @@ const LoginModal = () => {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -33,17 +36,22 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    axios
-      .post("/api/register", data)
-      .then(() => {
-        registerModal.onClose();
-      })
-      .catch((error) => {
-        toast.error("Something went wrong!");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback) => {
+      setIsLoading(false);
+
+      if (callback?.ok) {
+        toast.success("Logged In Successfully");
+        router.refresh();
+        loginModal.onClose();
+      }
+
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
   };
 
   const bodyContent = () => (
@@ -80,13 +88,19 @@ const LoginModal = () => {
         outline
         label="Continue with google"
         icon={FcGoogle}
-        // onClick={()=> {}}
+        onClick={() => signIn("google")}
       />
       <Button
         outline
         label="Continue with github"
         icon={AiFillGithub}
-        // onClick={()=> {}}
+        onClick={() => signIn("github")}
+      />
+      <Button
+        outline
+        label="Continue with facebook"
+        icon={SiFacebook}
+        onClick={() => signIn("facebook")}
       />
       <div className="justify-center flex flex-row items-center gap-2">
         <div className="">Already have an account?</div>
