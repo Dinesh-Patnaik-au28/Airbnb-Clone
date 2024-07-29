@@ -13,10 +13,12 @@ import toast from "react-hot-toast";
 import Button from "../Button";
 import { signIn } from "next-auth/react";
 import { SiFacebook } from "react-icons/si";
+import useLoginModal from "@/app/hooks/useLoginModalStore";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
+  const loginModal = useLoginModal();
 
   const {
     register,
@@ -45,6 +47,11 @@ const RegisterModal = () => {
         setIsLoading(false);
       });
   };
+
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [registerModal, loginModal]);
 
   const bodyContent = () => (
     <div className="flex flex-col gap-4">
@@ -106,7 +113,7 @@ const RegisterModal = () => {
         <div className="">Already have an account?</div>
         <div
           className="text-neutral-800 cursor-pointer hover:underline"
-          onClick={registerModal.onClose}
+          onClick={toggle}
         >
           Log in
         </div>
