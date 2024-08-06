@@ -35,11 +35,11 @@ export async function POST(request: Request) {
       description,
       imageSrc,
       category,
-      roomCount,
+      roomCount:parseInt(roomCount),
       bathRoomCount,
       guestCount,
       locationValue: location.value,
-      price: parseInt(price, 10),
+      price: parseFloat(price),
       userId: currentUser.id,
     },
   });
