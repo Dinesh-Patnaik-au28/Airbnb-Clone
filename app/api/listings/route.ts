@@ -3,7 +3,6 @@ import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 
 export async function POST(request: Request) {
-  console.log("bitco");
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
@@ -35,7 +34,7 @@ export async function POST(request: Request) {
       description,
       imageSrc,
       category,
-      roomCount:parseInt(roomCount),
+      roomCount: parseInt(roomCount),
       bathRoomCount,
       guestCount,
       locationValue: location.value,
